@@ -6,7 +6,7 @@ const coffeeData = require("./data/coffee.js")
 const machinesData = require("./data/machines.js")
 
 app.use(cors())
-app.use("/public/images", express.static("public/images"));
+app.use(express.static("/public"));
 
 // Example route
 app.get("/", (req, res) => {
