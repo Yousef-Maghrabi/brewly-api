@@ -27,9 +27,9 @@ brewly-api/
 │
 ├── public/
 │   ├── images/
-│   │   ├── machines/<brand>/<machine-name>/
+│   │   ├── pmc01/
 │   │   │   ├── 01.webp   # Image of the machine
-│   │   └── coffee/<brand>/<coffee-name>/
+│   │   └── ct01/
 │   │       ├── 01.webp   # Image of the coffee
 │   ├── index.html         # Introduction page
 │   └── docs.html          # Documentation page
@@ -98,7 +98,7 @@ The `/api/machines` endpoint returns an object where each key is a **brand** (e.
       "title": "Philips 4300 LatteGo",
       "details": "Fully automatic espresso machine with LatteGo milk system...",
       "price": 400,
-      "imagePath": "/public/images/machines/philips/4300-latte-go/01.webp",
+      "imagePath": "/public/images/pmc01/01.webp",
       "keySpecs": {
         "coffeeTypes": "Espresso, Coffee, Americano...",
         "milkSystem": "LatteGo – detachable two-part milk carafe...",
@@ -121,15 +121,15 @@ The `/api/machines` endpoint returns an object where each key is a **brand** (e.
 
 ### ☕ `/api/coffee` Response Structure
 
-The `/api/coffee` endpoint returns an object where each key is a **coffee code** (e.g., `laBrewOrganic`).
+The `/api/coffee` endpoint returns an object where each key is a **coffee code** (e.g., `ct01`).
 
 ```json
 {
-  "laBrewOrganic": {
+  "ct01": {
     "title": "L.A. Brew Organic",
     "details": "Our go-to brewed coffee built on the bold foundation...",
     "price": 16.99,
-    "imagePath": "/public/images/coffee/the-coffee-bean-tea-leaf/la-brew-organic/01.webp",
+    "imagePath": "/public/images/ct01/01.webp",
     "keySpecs": {
       "roastLevel": "Medium roast",
       "brewType": "Whole Bean",
@@ -140,7 +140,7 @@ The `/api/coffee` endpoint returns an object where each key is a **coffee code**
       "...": "..."
     }
   },
-  "laEspressoOrganic": {
+  "ct02": {
     "title": "L.A. Espresso Organic",
     "...": "..."
   }
@@ -154,8 +154,8 @@ The `/api/coffee` endpoint returns an object where each key is a **coffee code**
 Images are served statically. You can construct the full image URL by combining the server address with the `imagePath` from the JSON response.
 
 **Example:**
-If the server is at `http://localhost:5000` and an `imagePath` is `/public/images/machines/philips/4300-latte-go/01.webp`, the full URL is:
-`http://localhost:5000/public/images/machines/philips/4300-latte-go/01.webp`
+If the server is at `http://localhost:5000` and an `imagePath` is `/public/images/pmc01/01.webp`, the full URL is:
+`http://localhost:5000/public/images/pmc01/01.webp`
 
 ---
 

@@ -3,7 +3,7 @@ const coffeeData = {
         title: "L.A. Brew Organic",
         details: "Our go-to brewed coffee built on the bold foundation of our iconic L.A. Espresso. A smooth medium roast crafted with 100% organic beans. :contentReference[oaicite:2]{index=2}",
         price: 16.99,
-        imagePath: "/public/images/coffee/the-coffee-bean-tea-leaf/la-brew-organic/01.webp",
+        imagePath: "/public/images/ct01/01.webp",
         keySpecs: {
             roastLevel: "Medium roast",
             brewType: "Whole Bean",
@@ -22,7 +22,7 @@ const coffeeData = {
         title: "L.A. Espresso Organic",
         details: "Our signature espresso blend — bold, smooth and ready to roll — now in an all-organic version. :contentReference[oaicite:7]{index=7}",
         price: 16.99,
-        imagePath: "/public/images/coffee/the-coffee-bean-tea-leaf/la-espresso-organic/01.webp",
+        imagePath: "/public/images/ct02/01.webp",
         keySpecs: {
             roastLevel: "Dark roast",
             brewType: "Whole Bean",

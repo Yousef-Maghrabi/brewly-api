@@ -121,8 +121,10 @@ brewly-api/
 │
 ├── public/
 │   ├── images/
-│   │   ├── machines/<brand>/<machine-name>/
-│   │   └── coffee/<brand>/<coffee-name>/
+│   │   ├── pmc01/
+│   │   │   └── 01.webp      # Image for machine pmc01
+│   │   └── ct01/
+│   │       └── 01.webp      # Image for coffee ct01
 │   ├── index.html
 │   └── docs.html
 │
@@ -180,7 +182,7 @@ npm install
       "title": "Philips 4300 LatteGo",
       "details": "Fully automatic espresso machine with LatteGo milk system...",
       "price": 400,
-      "imagePath": "/public/images/machines/philips/4300-latte-go/01.webp",
+      "imagePath": "/public/images/pmc01/01.webp",
       "keySpecs": {
         "coffeeTypes": "Espresso, Coffee, Americano...",
         "milkSystem": "LatteGo – detachable two-part milk carafe...",
@@ -202,14 +204,14 @@ npm install
     </pre>
 
     <h3>☕ <code>/api/coffee</code> Response Structure</h3>
-    <p>The <code>/api/coffee</code> endpoint returns an object where each key is a <strong>coffee code</strong> (e.g., <code>laBrewOrganic</code>).</p>
+    <p>The <code>/api/coffee</code> endpoint returns an object where each key is a <strong>coffee code</strong> (e.g., <code>ct01</code>).</p>
     <pre>
 {
-  "laBrewOrganic": {
+  "ct01": {
     "title": "L.A. Brew Organic",
     "details": "Our go-to brewed coffee built on the bold foundation...",
     "price": 16.99,
-    "imagePath": "/public/images/coffee/the-coffee-bean-tea-leaf/la-brew-organic/01.webp",
+    "imagePath": "/public/images/ct01/01.webp",
     "keySpecs": {
       "roastLevel": "Medium roast",
       "brewType": "Whole Bean",
@@ -220,7 +222,7 @@ npm install
       "...": "..."
     }
   },
-  "laEspressoOrganic": {
+  "ct02": {
     "title": "L.A. Espresso Organic",
     "...": "..."
   }
@@ -232,8 +234,8 @@ npm install
     <h2>🖼️ Image URLs</h2>
     <p>Images are served statically. You can construct the full image URL by combining the server address with the <code>imagePath</code> from the JSON response.</p>
     <p><strong>Example:</strong><br>
-    If the server is at <code>http://localhost:5000</code> and an <code>imagePath</code> is <code>/public/images/machines/philips/4300-latte-go/01.webp</code>, the full URL is:<br>
-    <code>http://localhost:5000/public/images/machines/philips/4300-latte-go/01.webp</code></p>
+    If the server is at <code>http://localhost:5000</code> and an <code>imagePath</code> is <code>/public/images/pmc01/01.webp</code>, the full URL is:<br>
+    <code>http://localhost:5000/public/images/pmc01/01.webp</code></p>
 
     <hr>
 
