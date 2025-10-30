@@ -90,7 +90,7 @@ const data = {
         }
     },
     "saoco": {
-        smc01: {
+        "smc01": {
             title: "Saeco PicoBaristo",
             details: "Super-automatic espresso machine by Saeco with wide range of drink options and adjustable settings.",
             price: 400.99,
@@ -112,7 +112,7 @@ const data = {
                 userProfiles: "User profiles and custom drink saving (model dependent)."
             }
         },
-        smc02: {
+        "smc02": {
             title: "Saeco Incanto",
             details: "Super-automatic espresso machine by Saeco, designed for ease of use and automatic cleaning features.",
             price: 399.99,
