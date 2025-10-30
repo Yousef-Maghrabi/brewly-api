@@ -4,17 +4,19 @@ const app = express();
 const PORT = 5000;
 const coffeeData = require("./data/coffee.js")
 const machinesData = require("./data/machines.js")
+const path = require("path")
 
 app.use(cors())
 app.use(express.static("/public"));
 
-// Example route
 app.get("/", (req, res) => {
-    res.render("/public/index.html")
+    // This correctly points to '.../your-app-directory/public/index.html'
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get("/docs", (req, res) => {
-    res.render("/public/docs.html")
+    // This correctly points to '.../your-app-directory/public/docs.html'
+    res.sendFile(path.join(__dirname, 'public', 'docs.html'));
 });
 
 app.get("/api/coffee", (req, res) => {
