@@ -1,10 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brewly API</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f3ef;
+      color: #2e2e2e;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #3e2723;
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+    }
+    nav {
+      background-color: #6d4c41;
+      text-align: center;
+      padding: 10px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .hero h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.2em;
+      color: #555;
+    }
+    .content {
+      max-width: 800px;
+      margin: 40px auto;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #3e2723;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .button:hover {
+      background-color: #5d4037;
+    }
+    footer {
+      background-color: #3e2723;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Brewly API</h1>
+    <p>Coffee Data for Developers ☕</p>
+  </header>
 
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="docs.html">Documentation</a>
+  </nav>
+
+  <section class="hero">
+    <h2>Welcome to the Brewly API</h2>
+    <p>Access detailed data about coffee products and machines — perfect for e-commerce, apps, or analytics.</p>
+    <a href="docs.html" class="button">Get Started →</a>
+  </section>
+
+  <section class="content">
+    <h3>About the API</h3>
+    <p>The Brewly API provides endpoints for fetching coffee details, machine specs, and more.
+      Whether you’re building a store, dashboard, or recommendation system, Brewly helps you serve
+      data that fuels the coffee world.</p>
+    <p>Our RESTful API is easy to integrate, JSON-based, and secured with token authentication.</p>
+    <a href="docs.html" class="button">View API Docs</a>
+  </section>
+
+  <footer>
+    <p>© 2025 Brewly API | Crafted with ❤️ + ☕</p>
+  </footer>
 </body>
 </html>
