@@ -1,10 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brewly API Documentation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f3ef;
+      color: #2e2e2e;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #3e2723;
+      color: #fff;
+      padding: 30px;
+      text-align: center;
+    }
+    nav {
+      background-color: #6d4c41;
+      text-align: center;
+      padding: 10px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2, h3 {
+      color: #3e2723;
+    }
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9em;
+    }
+    code {
+      background: #eee;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #6d4c41;
+      color: #fff;
+    }
+    footer {
+      background-color: #3e2723;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 60px;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>☕ Brewly API Documentation</h1>
+    <p>A simple, beginner-friendly API built with Express.js</p>
+  </header>
 
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="docs.html">Documentation</a>
+  </nav>
+
+  <div class="container">
+
+    <h2>Overview</h2>
+    <p>Welcome to the <strong>Brewly API</strong> — a simple backend built with <strong>Express.js</strong>.  
+      It provides structured <strong>JSON data</strong> for coffee machines and coffee products,  
+      and serves images through a clean, organized file structure.</p>
+    <p>This API is <strong>read-only</strong> — supporting only <code>GET</code> requests — ideal for beginners learning how to build and consume APIs.</p>
+
+    <hr>
+
+    <h2>🌟 What You’ll Learn</h2>
+    <ul>
+      <li>Organizing a backend using Express.js</li>
+      <li>Returning JSON responses</li>
+      <li>Serving static images and HTML pages</li>
+      <li>Structuring data without a database</li>
+      <li>Separating routes, data, and public assets cleanly</li>
+    </ul>
+
+    <hr>
+
+    <h2>🧭 Project Structure</h2>
+    <pre>
+brewly-api/
+├── data/
+│   ├── machines.js        # Machine data
+│   └── coffee.js          # Coffee data
+│
+├── public/
+│   ├── images/
+│   │   ├── machines/<brand>/<machine-name>/
+│   │   └── coffee/<brand>/<coffee-name>/
+│   ├── index.html
+│   └── docs.html
+│
+├── routes/
+│   ├── machines.js
+│   └── coffee.js
+│
+├── index.js
+├── package.json
+└── README.md
+    </pre>
+
+    <hr>
+
+    <h2>⚙️ Getting Started</h2>
+    <h3>1️⃣ Install Dependencies</h3>
+    <pre>
+git clone https://github.com/&lt;yourusername&gt;/brewly-api.git
+cd brewly-api
+npm install
+    </pre>
+
+    <h3>2️⃣ Run the API</h3>
+    <pre>npm run dev</pre>
+
+    <h3>3️⃣ Access the Server</h3>
+    <pre>http://localhost:5000</pre>
+
+    <hr>
+
+    <h2>🌐 Available Routes</h2>
+    <h3>☕ Machines Endpoints</h3>
+    <table>
+      <tr><th>Endpoint</th><th>Method</th><th>Description</th></tr>
+      <tr><td><code>/api/machines</code></td><td>GET</td><td>Returns all machines</td></tr>
+      <tr><td><code>/api/machines/:code</code></td><td>GET</td><td>Returns a machine by code</td></tr>
+    </table>
+
+    <h3>🌱 Coffee Endpoints</h3>
+    <table>
+      <tr><th>Endpoint</th><th>Method</th><th>Description</th></tr>
+      <tr><td><code>/api/coffee</code></td><td>GET</td><td>Returns all coffee types</td></tr>
+      <tr><td><code>/api/coffee/:code</code></td><td>GET</td><td>Returns a coffee by code</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>🧩 Data Format Examples</h2>
+    <h3>🏭 Machine Example</h3>
+    <pre>
+{
+  "code": "MCH01",
+  "name": "BrewMaster Pro",
+  "brand": "Brewly",
+  "details": "High-end espresso machine for professionals.",
+  "price": 299,
+  "specs": {
+    "Coffee type": "Espresso",
+    "Power": "1200W",
+    "Pressure": "15 bar"
+  },
+  "features": {
+    "Auto shutoff": true,
+    "Milk frother": true
+  },
+  "image": {
+    "front": "/public/images/machines/Brewly/BrewMaster-Pro/01.webp",
+    "left": "/public/images/machines/Brewly/BrewMaster-Pro/02.webp",
+    "right": "/public/images/machines/Brewly/BrewMaster-Pro/03.webp",
+    "details": "/public/images/machines/Brewly/BrewMaster-Pro/04.webp"
+  }
+}
+    </pre>
+
+    <h3>🍫 Coffee Example</h3>
+    <pre>
+{
+  "code": "CF01",
+  "name": "Espresso Roast",
+  "brand": "Brewly",
+  "details": "Rich and bold espresso blend sourced from Colombia.",
+  "price": 12,
+  "specs": {
+    "Origin": "Colombia",
+    "Roast Level": "Dark",
+    "Caffeine": "High"
+  },
+  "features": {
+    "Flavor Notes": "Chocolate, caramel, and nutty finish"
+  },
+  "image": {
+    "main": "/public/images/coffee/Brewly/Espresso-Roast/01.webp"
+  }
+}
+    </pre>
+
+    <hr>
+
+    <h2>🖼️ Image Organization</h2>
+    <table>
+      <tr><th>Category</th><th>File Path</th><th>Description</th></tr>
+      <tr><td>Machine (Front)</td><td>/public/images/machines/:brand/:machine-name/01.webp</td><td>Main front image</td></tr>
+      <tr><td>Machine (Left)</td><td>/public/images/machines/:brand/:machine-name/02.webp</td><td>Left view</td></tr>
+      <tr><td>Machine (Right)</td><td>/public/images/machines/:brand/:machine-name/03.webp</td><td>Right view</td></tr>
+      <tr><td>Machine (Details)</td><td>/public/images/machines/:brand/:machine-name/04.webp</td><td>Detail shot</td></tr>
+      <tr><td>Coffee</td><td>/public/images/coffee/:brand/:coffee-name/01.webp</td><td>Main coffee image</td></tr>
+    </table>
+
+    <p>➡️ Images are served from:</p>
+    <pre>http://localhost:5000/public/images/...</pre>
+
+    <hr>
+
+    <h2>🧱 Frontend Pages</h2>
+    <table>
+      <tr><th>Page</th><th>URL</th><th>Description</th></tr>
+      <tr><td>🏠 Intro</td><td>/</td><td>Overview page for the API</td></tr>
+      <tr><td>📚 Docs</td><td>/docs</td><td>HTML API documentation</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>🛠️ Tech Stack</h2>
+    <ul>
+      <li><strong>Node.js</strong> + <strong>Express.js</strong> → Server framework</li>
+      <li><strong>CORS</strong> → Allow frontend access</li>
+      <li><strong>Static Middleware</strong> → Serve HTML & images</li>
+      <li><strong>Local Data Files</strong> → No database required</li>
+    </ul>
+
+    <hr>
+
+    <h2>🚀 Future Improvements</h2>
+    <ul>
+      <li>Add <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> routes</li>
+      <li>Connect to MongoDB or PostgreSQL</li>
+      <li>Add authentication & API keys</li>
+      <li>Generate docs using Swagger or Redoc</li>
+      <li>Add logging & caching</li>
+    </ul>
+
+    <hr>
+
+    <h2>👨‍💻 Author</h2>
+    <p><strong>Yousef El-Maghrabi</strong><br>
+    Web & Mobile Developer<br>
+    Expertise: Next.js, React, Flutter, UI/UX Design, SEO</p>
+    <p>📫 Connect: <a href="#">LinkedIn</a> | <a href="#">Portfolio</a></p>
+
+    <blockquote style="border-left:4px solid #6d4c41; padding-left:10px; color:#555;">
+      💡 This project is perfect for junior developers learning how to structure and build real-world APIs with Express.js.
+    </blockquote>
+
+  </div>
+
+  <footer>
+    <p>© 2025 Brewly API | Crafted with ☕ and ❤️</p>
+  </footer>
 </body>
 </html>
+
