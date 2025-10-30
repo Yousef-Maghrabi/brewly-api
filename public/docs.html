@@ -88,7 +88,7 @@
 
   <nav>
     <a href="/">Home</a>
-    <a href="/docs/">Documentation</a>
+    <a href="/docs">Documentation</a>
   </nav>
 
   <div class="container">
@@ -107,7 +107,7 @@
       <li>Returning JSON responses</li>
       <li>Serving static images and HTML pages</li>
       <li>Structuring data without a database</li>
-      <li>Separating routes, data, and public assets cleanly</li>
+      <li>Separating data and public assets cleanly</li>
     </ul>
 
     <hr>
@@ -126,10 +126,6 @@ brewly-api/
 │   ├── index.html
 │   └── docs.html
 │
-├── routes/
-│   ├── machines.js
-│   └── coffee.js
-│
 ├── index.js
 ├── package.json
 └── README.md
@@ -140,7 +136,7 @@ brewly-api/
     <h2>⚙️ Getting Started</h2>
     <h3>1️⃣ Install Dependencies</h3>
     <pre>
-git clone https://github.com/&lt;yourusername&gt;/brewly-api.git
+git clone https://github.com/Yousef-El-Maghrabi/brewly-api.git
 cd brewly-api
 npm install
     </pre>
@@ -148,99 +144,104 @@ npm install
     <h3>2️⃣ Run the API</h3>
     <pre>npm run dev</pre>
 
-    <h3>3️⃣ Access the Server</h3>
-    <pre>http://localhost:5000</pre>
+    <p>The server will start on <code>http://localhost:5000</code>.</p>
 
     <hr>
 
     <h2>🌐 Available Routes</h2>
-    <h3>☕ Machines Endpoints</h3>
+    <p>This API provides two main endpoints to get all the data at once.</p>
+    <h3>☕ API Endpoints</h3>
     <table>
       <tr><th>Endpoint</th><th>Method</th><th>Description</th></tr>
-      <tr><td><code>/api/machines</code></td><td>GET</td><td>Returns all machines</td></tr>
-      <tr><td><code>/api/machines/:code</code></td><td>GET</td><td>Returns a machine by code</td></tr>
+      <tr><td><code>/api/machines</code></td><td>GET</td><td>Returns all available machines.</td></tr>
+      <tr><td><code>/api/coffee</code></td><td>GET</td><td>Returns all available coffee types.</td></tr>
     </table>
 
-    <h3>🌱 Coffee Endpoints</h3>
-    <table>
-      <tr><th>Endpoint</th><th>Method</th><th>Description</th></tr>
-      <tr><td><code>/api/coffee</code></td><td>GET</td><td>Returns all coffee types</td></tr>
-      <tr><td><code>/api/coffee/:code</code></td><td>GET</td><td>Returns a coffee by code</td></tr>
-    </table>
+    <h3>🤔 How to get a single item?</h3>
+    <p>This API is designed for simplicity. To get a single machine or coffee, you first fetch the entire list from one of the endpoints above. Then, you can find the specific item you need on your own application (client-side) by its ID.</p>
+    <p>For example, to get the "Philips 4300 LatteGo" machine, you would:
+      <ol>
+        <li>Fetch all machines from <code>/api/machines</code>.</li>
+        <li>The response will be a JSON object. You can access the Philips machines under the <code>philips</code> key.</li>
+        <li>The "4300 LatteGo" is under the <code>pmc01</code> key inside the <code>philips</code> object.</li>
+      </ol>
+    </p>
 
     <hr>
 
-    <h2>🧩 Data Format Examples</h2>
-    <h3>🏭 Machine Example</h3>
+    <h2>🧩 Data Structure Examples</h2>
+    <p>Here’s what the JSON data looks like for each endpoint.</p>
+    <h3>🏭 <code>/api/machines</code> Response Structure</h3>
+    <p>The <code>/api/machines</code> endpoint returns an object where each key is a <strong>brand</strong> (e.g., <code>philips</code>). Inside each brand, there's another object where keys are the <strong>machine code</strong> (e.g., <code>pmc01</code>).</p>
     <pre>
 {
-  "code": "MCH01",
-  "name": "BrewMaster Pro",
-  "brand": "Brewly",
-  "details": "High-end espresso machine for professionals.",
-  "price": 299,
-  "specs": {
-    "Coffee type": "Espresso",
-    "Power": "1200W",
-    "Pressure": "15 bar"
+  "philips": {
+    "pmc01": {
+      "title": "Philips 4300 LatteGo",
+      "details": "Fully automatic espresso machine with LatteGo milk system...",
+      "price": 400,
+      "imagePath": "/public/images/machines/philips/4300-latte-go/01.webp",
+      "keySpecs": {
+        "coffeeTypes": "Espresso, Coffee, Americano...",
+        "milkSystem": "LatteGo – detachable two-part milk carafe...",
+        "...": "..."
+      },
+      "features": {
+        "oneTouchFunctionality": "One-touch button for multiple coffee...",
+        "...": "..."
+      }
+    }
   },
-  "features": {
-    "Auto shutoff": true,
-    "Milk frother": true
-  },
-  "image": {
-    "front": "/public/images/machines/Brewly/BrewMaster-Pro/01.webp",
-    "left": "/public/images/machines/Brewly/BrewMaster-Pro/02.webp",
-    "right": "/public/images/machines/Brewly/BrewMaster-Pro/03.webp",
-    "details": "/public/images/machines/Brewly/BrewMaster-Pro/04.webp"
+  "saoco": {
+    "smc01": {
+        "title": "Saeco PicoBaristo",
+        "...": "..."
+    }
   }
 }
     </pre>
 
-    <h3>🍫 Coffee Example</h3>
+    <h3>☕ <code>/api/coffee</code> Response Structure</h3>
+    <p>The <code>/api/coffee</code> endpoint returns an object where each key is a <strong>coffee code</strong> (e.g., <code>laBrewOrganic</code>).</p>
     <pre>
 {
-  "code": "CF01",
-  "name": "Espresso Roast",
-  "brand": "Brewly",
-  "details": "Rich and bold espresso blend sourced from Colombia.",
-  "price": 12,
-  "specs": {
-    "Origin": "Colombia",
-    "Roast Level": "Dark",
-    "Caffeine": "High"
+  "laBrewOrganic": {
+    "title": "L.A. Brew Organic",
+    "details": "Our go-to brewed coffee built on the bold foundation...",
+    "price": 16.99,
+    "imagePath": "/public/images/coffee/the-coffee-bean-tea-leaf/la-brew-organic/01.webp",
+    "keySpecs": {
+      "roastLevel": "Medium roast",
+      "brewType": "Whole Bean",
+      "...": "..."
+    },
+    "features": {
+      "certifiedOrganic": true,
+      "...": "..."
+    }
   },
-  "features": {
-    "Flavor Notes": "Chocolate, caramel, and nutty finish"
-  },
-  "image": {
-    "main": "/public/images/coffee/Brewly/Espresso-Roast/01.webp"
+  "laEspressoOrganic": {
+    "title": "L.A. Espresso Organic",
+    "...": "..."
   }
 }
     </pre>
 
     <hr>
 
-    <h2>🖼️ Image Organization</h2>
-    <table>
-      <tr><th>Category</th><th>File Path</th><th>Description</th></tr>
-      <tr><td>Machine (Front)</td><td>/public/images/machines/:brand/:machine-name/01.webp</td><td>Main front image</td></tr>
-      <tr><td>Machine (Left)</td><td>/public/images/machines/:brand/:machine-name/02.webp</td><td>Left view</td></tr>
-      <tr><td>Machine (Right)</td><td>/public/images/machines/:brand/:machine-name/03.webp</td><td>Right view</td></tr>
-      <tr><td>Machine (Details)</td><td>/public/images/machines/:brand/:machine-name/04.webp</td><td>Detail shot</td></tr>
-      <tr><td>Coffee</td><td>/public/images/coffee/:brand/:coffee-name/01.webp</td><td>Main coffee image</td></tr>
-    </table>
-
-    <p>➡️ Images are served from:</p>
-    <pre>http://localhost:5000/public/images/...</pre>
+    <h2>🖼️ Image URLs</h2>
+    <p>Images are served statically. You can construct the full image URL by combining the server address with the <code>imagePath</code> from the JSON response.</p>
+    <p><strong>Example:</strong><br>
+    If the server is at <code>http://localhost:5000</code> and an <code>imagePath</code> is <code>/public/images/machines/philips/4300-latte-go/01.webp</code>, the full URL is:<br>
+    <code>http://localhost:5000/public/images/machines/philips/4300-latte-go/01.webp</code></p>
 
     <hr>
 
     <h2>🧱 Frontend Pages</h2>
     <table>
       <tr><th>Page</th><th>URL</th><th>Description</th></tr>
-      <tr><td>🏠 Intro</td><td>/</td><td>Overview page for the API</td></tr>
-      <tr><td>📚 Docs</td><td>/docs</td><td>HTML API documentation</td></tr>
+      <tr><td>🏠 Intro</td><td><code>/</code></td><td>Overview page for the API</td></tr>
+      <tr><td>📚 Docs</td><td><code>/docs</code></td><td>API documentation in HTML format</td></tr>
     </table>
 
     <hr>
@@ -257,20 +258,17 @@ npm install
 
     <h2>🚀 Future Improvements</h2>
     <ul>
-      <li>Add <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> routes</li>
-      <li>Connect to MongoDB or PostgreSQL</li>
-      <li>Add authentication & API keys</li>
-      <li>Generate docs using Swagger or Redoc</li>
-      <li>Add logging & caching</li>
+      <li>Add endpoints to get items by ID (e.g., <code>/api/machines/:brand/:code</code>).</li>
+      <li>Add <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> routes for admin management.</li>
+      <li>Connect to a real database (like MongoDB or PostgreSQL).</li>
+      <li>Add authentication & API keys.</li>
     </ul>
 
     <hr>
 
     <h2>👨‍💻 Author</h2>
     <p><strong>Yousef El-Maghrabi</strong><br>
-    Web & Mobile Developer<br>
-    Expertise: Next.js, React, Flutter, UI/UX Design, SEO</p>
-    <p>📫 Connect: <a href="#">LinkedIn</a> | <a href="#">Portfolio</a></p>
+    Web & Mobile Developer</p>
 
     <blockquote style="border-left:4px solid #6d4c41; padding-left:10px; color:#555;">
       💡 This project is perfect for junior developers learning how to structure and build real-world APIs with Express.js.
@@ -283,4 +281,3 @@ npm install
   </footer>
 </body>
 </html>
-

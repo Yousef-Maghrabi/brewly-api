@@ -13,7 +13,7 @@ This API is **read-only**, meaning it only supports `GET` requests — perfect f
 * How to return **JSON responses**
 * How to serve **static images and HTML pages**
 * How to structure data without a database
-* How to separate routes, data, and public assets cleanly
+* How to separate data and public assets cleanly
 
 ---
 
@@ -28,18 +28,11 @@ brewly-api/
 ├── public/
 │   ├── images/
 │   │   ├── machines/<brand>/<machine-name>/
-│   │   │   ├── 01.webp   # Front view
-│   │   │   ├── 02.webp   # Left view
-│   │   │   ├── 03.webp   # Right view
-│   │   │   └── 04.webp   # Details image
+│   │   │   ├── 01.webp   # Image of the machine
 │   │   └── coffee/<brand>/<coffee-name>/
-│   │       ├── 01.webp   # Main coffee image
+│   │       ├── 01.webp   # Image of the coffee
 │   ├── index.html         # Introduction page
 │   └── docs.html          # Documentation page
-│
-├── routes/
-│   ├── machines.js        # Routes for machines
-│   └── coffee.js          # Routes for coffee
 │
 ├── index.js               # Main Express server
 ├── package.json           # Dependencies and scripts
@@ -53,7 +46,7 @@ brewly-api/
 ### 1️⃣ **Install Dependencies**
 
 ```bash
-git clone https://github.com/<yourusername>/brewly-api.git
+git clone https://github.com/Yousef-El-Maghrabi/brewly-api.git
 cd brewly-api
 npm install
 ```
@@ -64,101 +57,105 @@ npm install
 npm run dev
 ```
 
-### 3️⃣ **Access the Server**
-
-```
-http://localhost:5000
-```
+The server will start on `http://localhost:5000`.
 
 ---
 
 ## 🌐 **Available Routes**
 
-### ☕ Machines Endpoints
+This API provides two main endpoints to get all the data at once.
 
-| Endpoint              | Method | Description                          |
-| --------------------- | ------ | ------------------------------------ |
-| `/api/machines`       | GET    | Returns all machines                 |
-| `/api/machines/:code` | GET    | Returns a single machine by its code |
+### ☕ API Endpoints
 
-### 🌱 Coffee Endpoints
+| Endpoint        | Method | Description                          |
+| --------------- | ------ | ------------------------------------ |
+| `/api/machines` | GET    | Returns all available machines.      |
+| `/api/coffee`   | GET    | Returns all available coffee types.  |
 
-| Endpoint            | Method | Description                              |
-| ------------------- | ------ | ---------------------------------------- |
-| `/api/coffee`       | GET    | Returns all coffee types                 |
-| `/api/coffee/:code` | GET    | Returns a single coffee type by its code |
+### 🤔 How to get a single item?
+
+This API is designed for simplicity. To get a single machine or coffee, you first fetch the entire list from one of the endpoints above. Then, you can find the specific item you need on your own application (client-side) by its ID.
+
+For example, to get the "Philips 4300 LatteGo" machine, you would:
+1.  Fetch all machines from `/api/machines`.
+2.  The response will be a JSON object. You can access the Philips machines under the `philips` key.
+3.  The "4300 LatteGo" is under the `pmc01` key inside the `philips` object.
 
 ---
 
-## 🧩 **Data Format Examples**
+## 🧩 **Data Structure Examples**
 
-### 🏭 Machine Example (`data/machines.js`)
+Here’s what the JSON data looks like for each endpoint.
 
-```js
+### 🏭 `/api/machines` Response Structure
+
+The `/api/machines` endpoint returns an object where each key is a **brand** (e.g., `philips`). Inside each brand, there's another object where keys are the **machine code** (e.g., `pmc01`).
+
+```json
 {
-  code: "MCH01",
-  name: "BrewMaster Pro",
-  brand: "Brewly",
-  details: "High-end espresso machine for professionals.",
-  price: 299,
-  specs: {
-    "Coffee type": "Espresso",
-    "Power": "1200W",
-    "Pressure": "15 bar"
+  "philips": {
+    "pmc01": {
+      "title": "Philips 4300 LatteGo",
+      "details": "Fully automatic espresso machine with LatteGo milk system...",
+      "price": 400,
+      "imagePath": "/public/images/machines/philips/4300-latte-go/01.webp",
+      "keySpecs": {
+        "coffeeTypes": "Espresso, Coffee, Americano...",
+        "milkSystem": "LatteGo – detachable two-part milk carafe...",
+        "...": "..."
+      },
+      "features": {
+        "oneTouchFunctionality": "One-touch button for multiple coffee...",
+        "...": "..."
+      }
+    }
   },
-  features: {
-    "Auto shutoff": true,
-    "Milk frother": true
-  },
-  image: {
-    front: "/public/images/machines/Brewly/BrewMaster-Pro/01.webp",
-    left: "/public/images/machines/Brewly/BrewMaster-Pro/02.webp",
-    right: "/public/images/machines/Brewly/BrewMaster-Pro/03.webp",
-    details: "/public/images/machines/Brewly/BrewMaster-Pro/04.webp"
+  "saoco": {
+    "smc01": {
+        "title": "Saeco PicoBaristo",
+        "...": "..."
+    }
   }
 }
 ```
 
-### 🍫 Coffee Example (`data/coffee.js`)
+### ☕ `/api/coffee` Response Structure
 
-```js
+The `/api/coffee` endpoint returns an object where each key is a **coffee code** (e.g., `laBrewOrganic`).
+
+```json
 {
-  code: "CF01",
-  name: "Espresso Roast",
-  brand: "Brewly",
-  details: "Rich and bold espresso blend sourced from Colombia.",
-  price: 12,
-  specs: {
-    "Origin": "Colombia",
-    "Roast Level": "Dark",
-    "Caffeine": "High"
+  "laBrewOrganic": {
+    "title": "L.A. Brew Organic",
+    "details": "Our go-to brewed coffee built on the bold foundation...",
+    "price": 16.99,
+    "imagePath": "/public/images/coffee/the-coffee-bean-tea-leaf/la-brew-organic/01.webp",
+    "keySpecs": {
+      "roastLevel": "Medium roast",
+      "brewType": "Whole Bean",
+      "...": "..."
+    },
+    "features": {
+      "certifiedOrganic": true,
+      "...": "..."
+    }
   },
-  features: {
-    "Flavor Notes": "Chocolate, caramel, and nutty finish"
-  },
-  image: {
-    main: "/public/images/coffee/Brewly/Espresso-Roast/01.webp"
+  "laEspressoOrganic": {
+    "title": "L.A. Espresso Organic",
+    "...": "..."
   }
 }
 ```
 
 ---
 
-## 🖼️ **Image Organization**
+## 🖼️ **Image URLs**
 
-| Category          | File Path                                              | Description           |
-| ----------------- | ------------------------------------------------------ | --------------------- |
-| Machine (Front)   | `/public/images/machines/:brand/:machine-name/01.webp` | Main front image      |
-| Machine (Left)    | `/public/images/machines/:brand/:machine-name/02.webp` | Left view             |
-| Machine (Right)   | `/public/images/machines/:brand/:machine-name/03.webp` | Right view            |
-| Machine (Details) | `/public/images/machines/:brand/:machine-name/04.webp` | Extra detail shot     |
-| Coffee            | `/public/images/coffee/:brand/:coffee-name/01.webp`    | Main image for coffee |
+Images are served statically. You can construct the full image URL by combining the server address with the `imagePath` from the JSON response.
 
-➡️ Images are automatically served from:
-
-```
-http://localhost:5000/public/images/...
-```
+**Example:**
+If the server is at `http://localhost:5000` and an `imagePath` is `/public/images/machines/philips/4300-latte-go/01.webp`, the full URL is:
+`http://localhost:5000/public/images/machines/philips/4300-latte-go/01.webp`
 
 ---
 
@@ -182,11 +179,10 @@ http://localhost:5000/public/images/...
 
 ## 🚀 **Future Improvements**
 
-* Add `POST`, `PUT`, and `DELETE` routes for admin management
-* Connect to a real database (like MongoDB or PostgreSQL)
-* Add authentication & API keys
-* Auto-generate docs using Swagger or Redoc
-* Add request logging & caching
+* Add endpoints to get items by ID (e.g., `/api/machines/:brand/:code`).
+* Add `POST`, `PUT`, and `DELETE` routes for admin management.
+* Connect to a real database (like MongoDB or PostgreSQL).
+* Add authentication & API keys.
 
 ---
 
@@ -194,11 +190,7 @@ http://localhost:5000/public/images/...
 
 **Yousef El-Maghrabi**
 *Web & Mobile Developer*
-Expertise: **Next.js**, **React**, **Flutter**, **UI/UX Design**, **SEO**
-
-📫 Connect: [LinkedIn](#) | [Portfolio](#)
 
 ---
 
 > 💡 *This project is ideal for junior developers learning how to structure and build real-world APIs with Express.js.*
-> 
